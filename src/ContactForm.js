@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 class ContactForm extends Component {
   constructor(props) {
     super(props);
@@ -9,52 +10,56 @@ class ContactForm extends Component {
     };
   }
 
-  handleInputChange = (event) => {
+  handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { name, email, message } = this.state;
-    // Perform any actions you want with the form data, such as sending an email or saving to a database
-    console.log("Form submitted:", name, email, message);
+    this.setState({ [name]: value });
   };
 
   render() {
-    const { name, email, message } = this.state;
-
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>Name:</label>
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
+            id="name"
             name="name"
-            value={name}
-            onChange={this.handleInputChange}
+            value={this.state.name}
+            onChange={this.handleChange}
+            required
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
+            id="email"
             name="email"
-            value={email}
-            onChange={this.handleInputChange}
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
           />
         </div>
-        <div>
-          <label>Message:</label>
+        <div className="form-group">
+          <label htmlFor="message">Message:</label>
           <textarea
+            id="message"
             name="message"
-            value={message}
-            onChange={this.handleInputChange}
-          />
+            value={this.state.message}
+            onChange={this.handleChange}
+            rows="4"
+            required
+          ></textarea>
         </div>
-        <button type="submit">Submit</button>
+        <div className="form-group">
+          <button type="submit">Submit</button>
+        </div>
       </form>
     );
   }
