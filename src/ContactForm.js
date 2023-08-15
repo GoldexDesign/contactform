@@ -19,7 +19,7 @@ class ContactForm extends Component {
     return (
       <form
         name="contact"
-        method="POST"
+        action="POST"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
       >
